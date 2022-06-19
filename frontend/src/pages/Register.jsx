@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
+import { register } from '../features/auth/authSlice';
 
 function Register() {
   const [formData, setFormData] = useState({
-    name: '',
+    user: '',
     email: '',
     password: '',
     password2: '',
@@ -24,7 +26,21 @@ function Register() {
     if (password !== password2) {
       toast.error('密碼輸入錯誤');
     }
+    else{
+      const userData = {
+        name,
+        email,
+        password,
+      };
+      dispatch(register(userData))
+    }
   };
+
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
   return (
     <>
