@@ -78,25 +78,26 @@ function Ticket() {
 
     return (
         <div className='ticket-page'>
-        <header className='ticket-header'>
+        <header className='ticket-header space-y-3'>
             <BackButton url='/tickets' />
-            <h2>
-                Ticket ID: {ticket._id}
+            <h2 className='text-lg'>
+                Ticket ID：{ticket._id}
                 <span className={`status status-${ticket.status}`}>
                     {ticket.status}
                 </span>
             </h2>
-            <h3>
-                Date Submitted: {new Date(ticket.createdAt).toLocaleString('zh-tw')}
+            <h3 className='text-lg'>
+                Date Submitted：{new Date(ticket.createdAt).toLocaleString('zh-tw')}
             </h3>
-            <h3>Product: {ticket.product}</h3>
+            <h3 className='text-lg'>Product：{ticket.product}</h3>
             <hr />
             <div className='ticket-desc'>
-                <h3>Description of Issue：</h3>
+                <h3 className='font-bold'>Description of Issue：</h3>
                 <p>{ticket.description}</p>
                 <p>{ticket.state}</p>
             </div>
-            <h2>Notes</h2>
+            <h2 className='text-lg'>Notes：</h2>
+            <hr className='pb-3'/>
         </header>
 
         {ticket.status !== 'closed' && (
