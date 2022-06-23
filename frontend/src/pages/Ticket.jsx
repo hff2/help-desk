@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTicket, reset } from '../features/tickets/ticketSlice';
-import { useParams } from 'react-router-dom';
+import { getTicket, reset, closeTicket  } from '../features/tickets/ticketSlice';
+import { useParams, useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 
@@ -15,6 +15,7 @@ function Ticket() {
 
     const params = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { ticketId } = useParams();
 
     useEffect(() => {
@@ -25,6 +26,13 @@ function Ticket() {
     dispatch(getTicket(ticketId));
     // eslint-disable-next-line
     }, [isError, message, ticketId]);
+
+    // Close ticket
+    const onTicketClose = () => {
+        dispatch(closeTicket(ticketId));
+        toast.success('Ticket Closed');
+        navigate('/tickets');
+    };
 
     if (isLoading) {
         return <Spinner />;
@@ -47,6 +55,7 @@ function Ticket() {
             <h3>
                 Date Submitted: {new Date(ticket.createdAt).toLocaleString('en-US')}
             </h3>
+            <h3>Product: {ticket.product}</h3>
             <hr />
             <div className='ticket-desc'>
                 <h3>Description of Issue</h3>
@@ -54,6 +63,11 @@ function Ticket() {
                 <p>{ticket.state}</p>
             </div>
         </header>
+            {ticket.status !== 'closed' && (
+                <button onClick={onTicketClose} className='w-28 lg:w-36 border-2 py-2 rounded-xl bg-red-500 text-zinc-50 hover:bg-red-600 ease-in-out duration-300 my-5'>
+                    Close Ticket
+                </button>
+            )}
         </div>
     );
 }

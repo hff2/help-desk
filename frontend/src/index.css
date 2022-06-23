@@ -116,7 +116,7 @@ body {
   background-color: #333;
   color: #fff;
   width: 70px;
-  padding: 0 20px;
+  padding: 0 5px;
   justify-self: center;
   border-radius: 10px;
   font-size: 16px;
@@ -136,7 +136,7 @@ body {
 }
 
 .status-closed {
-  background-color: darkred;
+  background-color: rgb(167, 57, 57);
   color: #fff;
   border-radius: 10px;
 }
